@@ -1,14 +1,37 @@
-const express = require('express'); // Importamos Express
-const pool = require('./db'); // Importamos la conexión a PostgreSQL
-const app = express(); // Creamos la aplicación
-const PORT = 3000; // Puerto del servidor
+require('dotenv').config(); // Cargar variables de entorno
+const express = require('express');
+const pool = require('./db'); // Importar conexión a PostgreSQL
+const app = express();
+const PORT = 3000;
 
-// Middleware para procesar JSON en las solicitudes POST
-app.use(express.json());
+app.use(express.json()); // Middleware para procesar JSON
 
+// Ruta principal
+app.get('/', (req, res) => {
+    res.send('Servidor ARTNIFY en funcionamiento');
+});
 
+// Ruta para obtener todos los usuarios
+app.get('/api/usuarios', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM usuarios');
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).json({ error: 'Error al obtener usuarios' });
+    }
+});
 
-
+// Ruta para obtener todos los cursos
+app.get('/api/cursos', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM cursos');
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener cursos:', error);
+        res.status(500).json({ error: 'Error al obtener cursos' });
+    }
+});
 
 // Iniciar el servidor
 app.listen(PORT, () => {
