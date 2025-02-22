@@ -3,7 +3,7 @@ const http = require('http');   // importar el modulo HTTP
 const PORT = 3000;  // puerto en el que se ejecutará el servidor
 
 const server = http.createServer((req, res) => {
-    if(req.url === '/') {   //Ruta principal
+    if(req.method === '/') {   //Ruta principal
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Servidor ARTNIFY en marcha');
     } else if(req.url === '/api') { //Nuevas rutas
