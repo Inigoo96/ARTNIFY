@@ -1,13 +1,12 @@
-require('dotenv').config(); // Cargar variables de entorno
 const { Pool } = require('pg');
 
-// Configurar la conexión con PostgreSQL usando variables de entorno
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    user: 'postgres',
+    host: 'ai-formation.cxeqa1ynhmmz.us-east-1.rds.amazonaws.com', 
+    database: 'postgres',  
+    password: 'aq123es.',
+    port: 5432,
+    ssl: { rejectUnauthorized: false }
 });
 
-module.exports = pool; // Exportamos la conexión
+module.exports = pool;
